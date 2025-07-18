@@ -20,11 +20,13 @@ struct MenuBarIconView: View {
     @AppStorage("officeDuration") private var officeDuration: Double = 9.0
 
     var body: some View {
-        HStack {
-            Image(systemName: timeStatus.icon)
-                .foregroundColor(timeStatus.color)
-            Text(timeStatus.timeText)
-        }
+        HStack(spacing: 4) {
+                    Image(systemName: timeStatus.icon)
+                        .renderingMode(.template) // ✅ Force template rendering
+                        .foregroundColor(timeStatus.color)
+                    Text(timeStatus.timeText)
+                        .foregroundColor(timeStatus.color) // Optional: match color
+                }
     }
 
     private var hasEntryTime: Bool {
@@ -40,18 +42,30 @@ struct MenuBarIconView: View {
 
     private var timeStatus: (icon: String, timeText: String, color: Color) {
         guard hasEntryTime else {
-            return ("exclamationmark.triangle", "Set Entry Time", .orange)
+            return ("exclamationmark.triangle", "Set Time", .orange)
         }
 
-        let workedSeconds = Date().timeIntervalSince(entryTime)
-        let (hours, minutes) = secondsToHM(Int(workedSeconds))
+        let now = Date()
+        let entry = entryTime
+        let workedSeconds = now.timeIntervalSince(entry)
+        
+        if workedSeconds < 0 {
+            // If user selects a future time accidentally
+            return ("questionmark.circle", "Future Time", .gray)
+        }
 
-        if workedSeconds < safeExitDuration * 3600 {
-            return ("clock.badge.exclamationmark", "\(hours)h \(minutes)m", .orange)
+        let remainingSeconds = max(0, officeDuration * 3600 - workedSeconds)
+        let (workedHours, workedMinutes) = secondsToHM(Int(workedSeconds))
+        let (remainingHours, remainingMinutes) = secondsToHM(Int(remainingSeconds))
+
+        if remainingSeconds <= 0 {
+            return ("checkmark.circle.fill", "Time's Up!", .green)
+        } else if workedSeconds < safeExitDuration * 3600 {
+            return ("hourglass.bottomhalf.filled", "\(remainingHours)h \(remainingMinutes)m", .orange)
         } else if workedSeconds < officeDuration * 3600 {
-            return ("checkmark.circle.fill", "\(hours)h \(minutes)m", .yellow)
+            return ("checkmark.circle.fill", "\(remainingHours)h \(remainingMinutes)m", .yellow)
         } else {
-            return ("checkmark.circle.fill", "\(hours)h \(minutes)m", .green)
+            return ("checkmark.circle.fill", "Time's Up!", .green)
         }
     }
 
@@ -89,9 +103,6 @@ struct MenuBarView: View {
                     Label("Safe Exit Time: \(format(safeExitTime))", systemImage: "checkmark.circle")
                 }.buttonStyle(MacMenuBarButtonStyle())
 
-                Button(action: {}) {
-                    Label("Remaining: \(remainingTime)", systemImage: "hourglass.bottomhalf.filled")
-                }.buttonStyle(MacMenuBarButtonStyle())
             }
 
             Divider()
@@ -151,14 +162,6 @@ struct MenuBarView: View {
         entryTime.addingTimeInterval(safeExitDuration * 3600)
     }
 
-    private var remainingTime: String {
-        let remaining = endTime.timeIntervalSince(Date())
-        if remaining <= 0 {
-            return "Time’s up!"
-        }
-        let (h, m) = secondsToHM(Int(remaining))
-        return "\(h)h \(m)m"
-    }
 
     private func resetIfNotToday() {
         guard hasEntryTime else { return }
@@ -202,10 +205,10 @@ struct SettingsPopoverView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
                 Text("Office Duration (hrs):")
-                Stepper("\(officeDuration, specifier: "%.1f") hrs", value: $officeDuration, in: 6...12, step: 0.5)
+                Stepper("\(officeDuration, specifier: "%.1f") hrs", value: $officeDuration, in: 4...12, step: 0.5)
 
                 Text("Safe Exit Time (hrs):")
-                Stepper("\(safeExitDuration, specifier: "%.1f") hrs", value: $safeExitDuration, in: 6...12, step: 0.5)
+                Stepper("\(safeExitDuration, specifier: "%.1f") hrs", value: $safeExitDuration, in: 4...12, step: 0.25)
 
                 Text("Late Entry After (hour):")
                 Stepper("\(lateEntryHour):00", value: $lateEntryHour, in: 0...23)
@@ -213,7 +216,9 @@ struct SettingsPopoverView: View {
 
             Divider()
             Text("About").font(.headline)
-            Text("Nine2Shine helps you manage office entry and exit tracking from your macOS menu bar.")
+            Text("© 2025 Hasnat Abdullah.")
+            Text("Nine2Shine v1.0.0 • Support: hasnat.abdullah@cefalo.com")
+                 
                 .font(.footnote)
 
             Spacer()
