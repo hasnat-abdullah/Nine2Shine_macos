@@ -12,10 +12,12 @@ struct Nine2ShineApp: App {
     }
 }
 
-// MARK: - MenuBar Icon Logic
+// MARK: - MenuBar Icon View
 struct MenuBarIconView: View {
-    @AppStorage("entryTime") private var entryTimeStorage: Double = 0
-    @AppStorage("safeExitTime") private var safeExitTimeStorage: Double = 0
+    @AppStorage("entryHour") private var entryHour: Int = -1
+    @AppStorage("entryMinute") private var entryMinute: Int = -1
+    @AppStorage("safeExitDuration") private var safeExitDuration: Double = 8.5
+    @AppStorage("officeDuration") private var officeDuration: Double = 9.0
 
     var body: some View {
         HStack {
@@ -25,18 +27,28 @@ struct MenuBarIconView: View {
         }
     }
 
+    private var hasEntryTime: Bool {
+        entryHour >= 0 && entryMinute >= 0
+    }
+
+    private var entryTime: Date {
+        var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        components.hour = entryHour
+        components.minute = entryMinute
+        return Calendar.current.date(from: components) ?? Date()
+    }
+
     private var timeStatus: (icon: String, timeText: String, color: Color) {
-        guard entryTimeStorage > 0 else {
+        guard hasEntryTime else {
             return ("exclamationmark.triangle", "Set Entry Time", .orange)
         }
 
-        let entryTime = Date(timeIntervalSince1970: entryTimeStorage)
         let workedSeconds = Date().timeIntervalSince(entryTime)
         let (hours, minutes) = secondsToHM(Int(workedSeconds))
 
-        if workedSeconds < 8.5 * 3600 {
+        if workedSeconds < safeExitDuration * 3600 {
             return ("clock.badge.exclamationmark", "\(hours)h \(minutes)m", .orange)
-        } else if workedSeconds < 9 * 3600 {
+        } else if workedSeconds < officeDuration * 3600 {
             return ("checkmark.circle.fill", "\(hours)h \(minutes)m", .yellow)
         } else {
             return ("checkmark.circle.fill", "\(hours)h \(minutes)m", .green)
@@ -48,10 +60,12 @@ struct MenuBarIconView: View {
     }
 }
 
-// MARK: - Main Menu View
+// MARK: - MenuBar Main View
 struct MenuBarView: View {
-    @AppStorage("entryTime") private var entryTimeStorage: Double = 0
-    @AppStorage("safeExitTime") private var safeExitTimeStorage: Double = 0
+    @AppStorage("entryHour") private var entryHour: Int = -1
+    @AppStorage("entryMinute") private var entryMinute: Int = -1
+    @AppStorage("officeDuration") private var officeDuration: Double = 9.0
+    @AppStorage("safeExitDuration") private var safeExitDuration: Double = 8.5
     @State private var showTimePicker = false
     @State private var showSettings = false
     @State private var selectedTime = Date()
@@ -66,7 +80,7 @@ struct MenuBarView: View {
                 TimePickerView(selectedTime: $selectedTime, onSave: saveEntryTime)
             }
 
-            if entryTimeStorage > 0 {
+            if hasEntryTime {
                 Button(action: {}) {
                     Label("End Time: \(format(endTime))", systemImage: "flag.checkered")
                 }.buttonStyle(MacMenuBarButtonStyle())
@@ -98,29 +112,43 @@ struct MenuBarView: View {
             .buttonStyle(MacMenuBarButtonStyle())
         }
         .padding(8)
+        .onAppear(perform: resetIfNotToday)
+    }
+
+    // MARK: Entry Time Logic
+    private var hasEntryTime: Bool {
+        entryHour >= 0 && entryMinute >= 0
+    }
+
+    private var entryTime: Date {
+        var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        components.hour = entryHour
+        components.minute = entryMinute
+        return Calendar.current.date(from: components) ?? Date()
     }
 
     private func handleEntryTime() {
-        selectedTime = entryTimeStorage > 0 ? Date(timeIntervalSince1970: entryTimeStorage) : Date()
+        selectedTime = hasEntryTime ? entryTime : Date()
         showTimePicker.toggle()
     }
 
     private func saveEntryTime() {
-        entryTimeStorage = selectedTime.timeIntervalSince1970
-        safeExitTimeStorage = entryTimeStorage + (8.5 * 3600)
+        let components = Calendar.current.dateComponents([.hour, .minute], from: selectedTime)
+        entryHour = components.hour ?? -1
+        entryMinute = components.minute ?? -1
         showTimePicker = false
     }
 
     private var entryTimeLabel: String {
-        entryTimeStorage > 0 ? "Entry: \(format(Date(timeIntervalSince1970: entryTimeStorage)))" : "Set Entry Time"
+        hasEntryTime ? "Entry: \(format(entryTime))" : "Set Entry Time"
     }
 
     private var endTime: Date {
-        Calendar.current.date(byAdding: .hour, value: 9, to: Date(timeIntervalSince1970: entryTimeStorage)) ?? Date()
+        entryTime.addingTimeInterval(officeDuration * 3600)
     }
 
     private var safeExitTime: Date {
-        Date(timeIntervalSince1970: safeExitTimeStorage)
+        entryTime.addingTimeInterval(safeExitDuration * 3600)
     }
 
     private var remainingTime: String {
@@ -130,6 +158,19 @@ struct MenuBarView: View {
         }
         let (h, m) = secondsToHM(Int(remaining))
         return "\(h)h \(m)m"
+    }
+
+    private func resetIfNotToday() {
+        guard hasEntryTime else { return }
+        var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        components.hour = entryHour
+        components.minute = entryMinute
+
+        if let fullEntry = Calendar.current.date(from: components),
+           !Calendar.current.isDateInToday(fullEntry) {
+            entryHour = -1
+            entryMinute = -1
+        }
     }
 
     private func format(_ date: Date) -> String {
@@ -144,17 +185,36 @@ struct MenuBarView: View {
 }
 
 // MARK: - Settings View
-struct SettingsView: View {
+struct SettingsPopoverView: View {
     @AppStorage("weekendDays") private var weekendDays: String = "Saturday,Sunday"
+    @AppStorage("officeDuration") private var officeDuration: Double = 9.0
+    @AppStorage("safeExitDuration") private var safeExitDuration: Double = 8.5
+    @AppStorage("lateEntryHour") private var lateEntryHour: Int = 10
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Settings").font(.title2).bold()
             Divider()
 
-            Text("Weekend Days (comma separated):")
-            TextField("e.g. Saturday,Sunday", text: $weekendDays)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+            Group {
+                Text("Weekend Days (comma separated):")
+                TextField("e.g. Saturday,Sunday", text: $weekendDays)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                Text("Office Duration (hrs):")
+                Stepper("\(officeDuration, specifier: "%.1f") hrs", value: $officeDuration, in: 6...12, step: 0.5)
+
+                Text("Safe Exit Time (hrs):")
+                Stepper("\(safeExitDuration, specifier: "%.1f") hrs", value: $safeExitDuration, in: 6...12, step: 0.5)
+
+                Text("Late Entry After (hour):")
+                Stepper("\(lateEntryHour):00", value: $lateEntryHour, in: 0...23)
+            }
+
+            Divider()
+            Text("About").font(.headline)
+            Text("Nine2Shine helps you manage office entry and exit tracking from your macOS menu bar.")
+                .font(.footnote)
 
             Spacer()
         }
@@ -163,7 +223,7 @@ struct SettingsView: View {
     }
 }
 
-// MARK: - Time Picker
+// MARK: - Time Picker View
 struct TimePickerView: View {
     @Binding var selectedTime: Date
     var onSave: () -> Void
@@ -182,7 +242,7 @@ struct TimePickerView: View {
     }
 }
 
-// MARK: - Button Style
+// MARK: - macOS Menu Button Style
 struct MacMenuBarButtonStyle: ButtonStyle {
     @State private var isHovered: Bool = false
 
@@ -194,46 +254,5 @@ struct MacMenuBarButtonStyle: ButtonStyle {
             .cornerRadius(4)
             .contentShape(Rectangle())
             .onHover { isHovered = $0 }
-    }
-}
-
-struct SettingsPopoverView: View {
-    @AppStorage("weekendDays") private var weekendDays: String = "Saturday,Sunday"
-    @AppStorage("officeStartHour") private var officeStartHour: Int = 9
-    @AppStorage("officeDuration") private var officeDuration: Double = 9.0
-    @AppStorage("safeExitDuration") private var safeExitDuration: Double = 8.5
-    @AppStorage("lateEntryHour") private var lateEntryHour: Int = 10
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Settings").font(.title2).bold()
-            Divider()
-
-            Group {
-                Text("Weekend Days (comma separated):")
-                TextField("e.g. Saturday,Sunday", text: $weekendDays)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                Text("Office Start Hour:")
-                Stepper("\(officeStartHour):00", value: $officeStartHour, in: 0...23)
-
-                Text("Office Duration (hrs):")
-                Stepper("\(officeDuration, specifier: "%.1f") hrs", value: $officeDuration, in: 6...12, step: 0.5)
-
-                Text("Safe Exit Time (hrs):")
-                Stepper("\(safeExitDuration, specifier: "%.1f") hrs", value: $safeExitDuration, in: 6...12, step: 0.5)
-
-                Text("Late Entry After (hour):")
-                Stepper("\(lateEntryHour):00", value: $lateEntryHour, in: 0...23)
-            }
-
-            Divider()
-            Text("About").font(.headline)
-            Text("Nine2Shine helps you manage office entry and exit tracking from your macOS menu bar.").font(.footnote)
-
-            Spacer()
-        }
-        .padding()
-        .frame(width: 300)
     }
 }
