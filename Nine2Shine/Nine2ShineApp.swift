@@ -87,7 +87,7 @@ struct MenuBarView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             Button(action: handleEntryTime) {
-                Label(entryTimeLabel, systemImage: "clock")
+                Label(entryTimeLabel, systemImage: hasEntryTime ? "clock.fill" : "plus.circle")
             }
             .buttonStyle(MacMenuBarButtonStyle())
             .popover(isPresented: $showTimePicker) {
@@ -96,11 +96,11 @@ struct MenuBarView: View {
 
             if hasEntryTime {
                 Button(action: {}) {
-                    Label("End Time: \(format(endTime))", systemImage: "flag.checkered")
-                }.buttonStyle(MacMenuBarButtonStyle())
-
-                Button(action: {}) {
                     Label("Safe Exit Time: \(format(safeExitTime))", systemImage: "checkmark.circle")
+                }.buttonStyle(MacMenuBarButtonStyle())
+                
+                Button(action: {}) {
+                    Label("End Time: \(format(endTime))", systemImage: "flag.checkered")
                 }.buttonStyle(MacMenuBarButtonStyle())
 
             }
