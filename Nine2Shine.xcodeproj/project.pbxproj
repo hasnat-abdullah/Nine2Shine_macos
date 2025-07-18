@@ -1,0 +1,556 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		EF6E0A762D5B9C6B00D0768D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF6E0A5A2D5B9C6A00D0768D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EF6E0A612D5B9C6A00D0768D;
+			remoteInfo = Nine2Shine;
+		};
+		EF6E0A802D5B9C6B00D0768D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF6E0A5A2D5B9C6A00D0768D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EF6E0A612D5B9C6A00D0768D;
+			remoteInfo = Nine2Shine;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EF6E0A622D5B9C6A00D0768D /* Nine2Shine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nine2Shine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF6E0A752D5B9C6B00D0768D /* Nine2ShineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Nine2ShineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF6E0A7F2D5B9C6B00D0768D /* Nine2ShineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Nine2ShineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		EF6E0A642D5B9C6A00D0768D /* Nine2Shine */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Nine2Shine;
+			sourceTree = "<group>";
+		};
+		EF6E0A782D5B9C6B00D0768D /* Nine2ShineTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Nine2ShineTests;
+			sourceTree = "<group>";
+		};
+		EF6E0A822D5B9C6B00D0768D /* Nine2ShineUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Nine2ShineUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EF6E0A5F2D5B9C6A00D0768D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF6E0A722D5B9C6B00D0768D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF6E0A7C2D5B9C6B00D0768D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EF6E0A592D5B9C6A00D0768D = {
+			isa = PBXGroup;
+			children = (
+				EF6E0A642D5B9C6A00D0768D /* Nine2Shine */,
+				EF6E0A782D5B9C6B00D0768D /* Nine2ShineTests */,
+				EF6E0A822D5B9C6B00D0768D /* Nine2ShineUITests */,
+				EF6E0A632D5B9C6A00D0768D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EF6E0A632D5B9C6A00D0768D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EF6E0A622D5B9C6A00D0768D /* Nine2Shine.app */,
+				EF6E0A752D5B9C6B00D0768D /* Nine2ShineTests.xctest */,
+				EF6E0A7F2D5B9C6B00D0768D /* Nine2ShineUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EF6E0A612D5B9C6A00D0768D /* Nine2Shine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF6E0A892D5B9C6B00D0768D /* Build configuration list for PBXNativeTarget "Nine2Shine" */;
+			buildPhases = (
+				EF6E0A5E2D5B9C6A00D0768D /* Sources */,
+				EF6E0A5F2D5B9C6A00D0768D /* Frameworks */,
+				EF6E0A602D5B9C6A00D0768D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				EF6E0A642D5B9C6A00D0768D /* Nine2Shine */,
+			);
+			name = Nine2Shine;
+			packageProductDependencies = (
+			);
+			productName = Nine2Shine;
+			productReference = EF6E0A622D5B9C6A00D0768D /* Nine2Shine.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EF6E0A742D5B9C6B00D0768D /* Nine2ShineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF6E0A8C2D5B9C6B00D0768D /* Build configuration list for PBXNativeTarget "Nine2ShineTests" */;
+			buildPhases = (
+				EF6E0A712D5B9C6B00D0768D /* Sources */,
+				EF6E0A722D5B9C6B00D0768D /* Frameworks */,
+				EF6E0A732D5B9C6B00D0768D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EF6E0A772D5B9C6B00D0768D /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				EF6E0A782D5B9C6B00D0768D /* Nine2ShineTests */,
+			);
+			name = Nine2ShineTests;
+			packageProductDependencies = (
+			);
+			productName = Nine2ShineTests;
+			productReference = EF6E0A752D5B9C6B00D0768D /* Nine2ShineTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EF6E0A7E2D5B9C6B00D0768D /* Nine2ShineUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF6E0A8F2D5B9C6B00D0768D /* Build configuration list for PBXNativeTarget "Nine2ShineUITests" */;
+			buildPhases = (
+				EF6E0A7B2D5B9C6B00D0768D /* Sources */,
+				EF6E0A7C2D5B9C6B00D0768D /* Frameworks */,
+				EF6E0A7D2D5B9C6B00D0768D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EF6E0A812D5B9C6B00D0768D /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				EF6E0A822D5B9C6B00D0768D /* Nine2ShineUITests */,
+			);
+			name = Nine2ShineUITests;
+			packageProductDependencies = (
+			);
+			productName = Nine2ShineUITests;
+			productReference = EF6E0A7F2D5B9C6B00D0768D /* Nine2ShineUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EF6E0A5A2D5B9C6A00D0768D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					EF6E0A612D5B9C6A00D0768D = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					EF6E0A742D5B9C6B00D0768D = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = EF6E0A612D5B9C6A00D0768D;
+					};
+					EF6E0A7E2D5B9C6B00D0768D = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = EF6E0A612D5B9C6A00D0768D;
+					};
+				};
+			};
+			buildConfigurationList = EF6E0A5D2D5B9C6A00D0768D /* Build configuration list for PBXProject "Nine2Shine" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EF6E0A592D5B9C6A00D0768D;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = EF6E0A632D5B9C6A00D0768D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EF6E0A612D5B9C6A00D0768D /* Nine2Shine */,
+				EF6E0A742D5B9C6B00D0768D /* Nine2ShineTests */,
+				EF6E0A7E2D5B9C6B00D0768D /* Nine2ShineUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EF6E0A602D5B9C6A00D0768D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF6E0A732D5B9C6B00D0768D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF6E0A7D2D5B9C6B00D0768D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EF6E0A5E2D5B9C6A00D0768D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF6E0A712D5B9C6B00D0768D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF6E0A7B2D5B9C6B00D0768D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EF6E0A772D5B9C6B00D0768D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EF6E0A612D5B9C6A00D0768D /* Nine2Shine */;
+			targetProxy = EF6E0A762D5B9C6B00D0768D /* PBXContainerItemProxy */;
+		};
+		EF6E0A812D5B9C6B00D0768D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EF6E0A612D5B9C6A00D0768D /* Nine2Shine */;
+			targetProxy = EF6E0A802D5B9C6B00D0768D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		EF6E0A872D5B9C6B00D0768D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EF6E0A882D5B9C6B00D0768D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		EF6E0A8A2D5B9C6B00D0768D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Nine2Shine/Nine2Shine.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Nine2Shine/Preview Content\"";
+				DEVELOPMENT_TEAM = 5ALJJZD56Y;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = cefalo.Nine2Shine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		EF6E0A8B2D5B9C6B00D0768D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Nine2Shine/Nine2Shine.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Nine2Shine/Preview Content\"";
+				DEVELOPMENT_TEAM = 5ALJJZD56Y;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = cefalo.Nine2Shine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		EF6E0A8D2D5B9C6B00D0768D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5ALJJZD56Y;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = cefalo.Nine2ShineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nine2Shine.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Nine2Shine";
+			};
+			name = Debug;
+		};
+		EF6E0A8E2D5B9C6B00D0768D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5ALJJZD56Y;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = cefalo.Nine2ShineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nine2Shine.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Nine2Shine";
+			};
+			name = Release;
+		};
+		EF6E0A902D5B9C6B00D0768D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5ALJJZD56Y;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = cefalo.Nine2ShineUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Nine2Shine;
+			};
+			name = Debug;
+		};
+		EF6E0A912D5B9C6B00D0768D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5ALJJZD56Y;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = cefalo.Nine2ShineUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Nine2Shine;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EF6E0A5D2D5B9C6A00D0768D /* Build configuration list for PBXProject "Nine2Shine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF6E0A872D5B9C6B00D0768D /* Debug */,
+				EF6E0A882D5B9C6B00D0768D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF6E0A892D5B9C6B00D0768D /* Build configuration list for PBXNativeTarget "Nine2Shine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF6E0A8A2D5B9C6B00D0768D /* Debug */,
+				EF6E0A8B2D5B9C6B00D0768D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF6E0A8C2D5B9C6B00D0768D /* Build configuration list for PBXNativeTarget "Nine2ShineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF6E0A8D2D5B9C6B00D0768D /* Debug */,
+				EF6E0A8E2D5B9C6B00D0768D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF6E0A8F2D5B9C6B00D0768D /* Build configuration list for PBXNativeTarget "Nine2ShineUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF6E0A902D5B9C6B00D0768D /* Debug */,
+				EF6E0A912D5B9C6B00D0768D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EF6E0A5A2D5B9C6A00D0768D /* Project object */;
+}
