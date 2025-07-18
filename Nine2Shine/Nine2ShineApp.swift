@@ -197,60 +197,43 @@ struct MacMenuBarButtonStyle: ButtonStyle {
     }
 }
 
-
-
 struct SettingsPopoverView: View {
-    @AppStorage("weekendDayIndices") private var weekendDayIndices: String = "7,1" // Default: Saturday (7), Sunday (1)
-
-    private let allDays: [String] = Calendar.current.weekdaySymbols // Sunday to Saturday
-    @State private var selectedIndices: Set<Int> = []
-
+    @AppStorage("weekendDays") private var weekendDays: String = "Saturday,Sunday"
+    @AppStorage("officeStartHour") private var officeStartHour: Int = 9
+    @AppStorage("officeDuration") private var officeDuration: Double = 9.0
+    @AppStorage("safeExitDuration") private var safeExitDuration: Double = 8.5
+    @AppStorage("lateEntryHour") private var lateEntryHour: Int = 10
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Settings")
-                .font(.title2)
-                .bold()
-
+            Text("Settings").font(.title2).bold()
             Divider()
 
-            Text("Weekend Days:")
-                .font(.headline)
+            Group {
+                Text("Weekend Days (comma separated):")
+                TextField("e.g. Saturday,Sunday", text: $weekendDays)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
 
-            VStack(alignment: .leading) {
-                ForEach(allDays.indices, id: \.self) { i in
-                    Toggle(isOn: Binding(
-                        get: { selectedIndices.contains(i + 1) }, // Calendar weekday starts at 1
-                        set: { isSelected in
-                            if isSelected {
-                                selectedIndices.insert(i + 1)
-                            } else {
-                                selectedIndices.remove(i + 1)
-                            }
-                            saveWeekendSelection()
-                        }
-                    )) {
-                        Text(allDays[i])
-                    }
-                }
+                Text("Office Start Hour:")
+                Stepper("\(officeStartHour):00", value: $officeStartHour, in: 0...23)
+
+                Text("Office Duration (hrs):")
+                Stepper("\(officeDuration, specifier: "%.1f") hrs", value: $officeDuration, in: 6...12, step: 0.5)
+
+                Text("Safe Exit Time (hrs):")
+                Stepper("\(safeExitDuration, specifier: "%.1f") hrs", value: $safeExitDuration, in: 6...12, step: 0.5)
+
+                Text("Late Entry After (hour):")
+                Stepper("\(lateEntryHour):00", value: $lateEntryHour, in: 0...23)
             }
+
+            Divider()
+            Text("About").font(.headline)
+            Text("Nine2Shine helps you manage office entry and exit tracking from your macOS menu bar.").font(.footnote)
 
             Spacer()
         }
         .padding()
-        .frame(width: 300, height: 320)
-        .onAppear {
-            loadWeekendSelection()
-        }
-    }
-
-    private func loadWeekendSelection() {
-        let indices = weekendDayIndices
-            .split(separator: ",")
-            .compactMap { Int($0.trimmingCharacters(in: .whitespaces)) }
-        selectedIndices = Set(indices)
-    }
-
-    private func saveWeekendSelection() {
-        weekendDayIndices = selectedIndices.sorted().map(String.init).joined(separator: ",")
+        .frame(width: 300)
     }
 }
