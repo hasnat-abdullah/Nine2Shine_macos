@@ -13,59 +13,55 @@ struct Nine2ShineApp: App {
 }
 
 // MARK: - MenuBar Icon View
+
 struct MenuBarIconView: View {
     @AppStorage("entryHour") private var entryHour: Int = -1
     @AppStorage("entryMinute") private var entryMinute: Int = -1
-    @AppStorage("safeExitDuration") private var safeExitDuration: Double = 8.5
+    @AppStorage("entryDate") private var entryDate: Double = -1
+
     @AppStorage("officeDuration") private var officeDuration: Double = 9.0
+    @AppStorage("safeExitDuration") private var safeExitDuration: Double = 8.5
 
     var body: some View {
         HStack(spacing: 4) {
-                    Image(systemName: timeStatus.icon)
-                        .renderingMode(.template) // ✅ Force template rendering
-                        .foregroundColor(timeStatus.color)
-                    Text(timeStatus.timeText)
-                        .foregroundColor(timeStatus.color) // Optional: match color
-                }
+            Image(systemName: timeStatus.icon)
+                .renderingMode(.template)
+                .foregroundColor(timeStatus.color)
+            Text(timeStatus.timeText)
+                .foregroundColor(timeStatus.color)
+        }
     }
 
     private var hasEntryTime: Bool {
-        entryHour >= 0 && entryMinute >= 0
+        entryHour >= 0 && entryMinute >= 0 && entryDate > 0
     }
 
     private var entryTime: Date {
-        var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-        components.hour = entryHour
-        components.minute = entryMinute
-        return Calendar.current.date(from: components) ?? Date()
+        Date(timeIntervalSince1970: entryDate)
     }
 
     private var timeStatus: (icon: String, timeText: String, color: Color) {
         guard hasEntryTime else {
             return ("exclamationmark.triangle", "Set Time", .orange)
         }
+        
 
         let now = Date()
-        let entry = entryTime
-        let workedSeconds = now.timeIntervalSince(entry)
-        
+        let workedSeconds = now.timeIntervalSince(entryTime)
+
         if workedSeconds < 0 {
-            // If user selects a future time accidentally
             return ("questionmark.circle", "Future Time", .gray)
         }
 
         let remainingSeconds = max(0, officeDuration * 3600 - workedSeconds)
-        let (workedHours, workedMinutes) = secondsToHM(Int(workedSeconds))
         let (remainingHours, remainingMinutes) = secondsToHM(Int(remainingSeconds))
 
         if remainingSeconds <= 0 {
             return ("checkmark.circle.fill", "Time's Up!", .green)
         } else if workedSeconds < safeExitDuration * 3600 {
             return ("hourglass.bottomhalf.filled", "\(remainingHours)h \(remainingMinutes)m", .orange)
-        } else if workedSeconds < officeDuration * 3600 {
-            return ("checkmark.circle.fill", "\(remainingHours)h \(remainingMinutes)m", .yellow)
         } else {
-            return ("checkmark.circle.fill", "Time's Up!", .green)
+            return ("checkmark.circle", "\(remainingHours)h \(remainingMinutes)m", .yellow)
         }
     }
 
@@ -74,15 +70,19 @@ struct MenuBarIconView: View {
     }
 }
 
-// MARK: - MenuBar Main View
+// MARK: - MenuBar View
+
 struct MenuBarView: View {
     @AppStorage("entryHour") private var entryHour: Int = -1
     @AppStorage("entryMinute") private var entryMinute: Int = -1
+    @AppStorage("entryDate") private var entryDate: Double = -1
+
     @AppStorage("officeDuration") private var officeDuration: Double = 9.0
     @AppStorage("safeExitDuration") private var safeExitDuration: Double = 8.5
+
+    @State private var selectedTime = Date()
     @State private var showTimePicker = false
     @State private var showSettings = false
-    @State private var selectedTime = Date()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -98,11 +98,10 @@ struct MenuBarView: View {
                 Button(action: {}) {
                     Label("Safe Exit Time: \(format(safeExitTime))", systemImage: "checkmark.circle")
                 }.buttonStyle(MacMenuBarButtonStyle())
-                
+
                 Button(action: {}) {
                     Label("End Time: \(format(endTime))", systemImage: "flag.checkered")
                 }.buttonStyle(MacMenuBarButtonStyle())
-
             }
 
             Divider()
@@ -126,32 +125,12 @@ struct MenuBarView: View {
         .onAppear(perform: resetIfNotToday)
     }
 
-    // MARK: Entry Time Logic
     private var hasEntryTime: Bool {
-        entryHour >= 0 && entryMinute >= 0
+        entryHour >= 0 && entryMinute >= 0 && entryDate > 0
     }
 
     private var entryTime: Date {
-        var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-        components.hour = entryHour
-        components.minute = entryMinute
-        return Calendar.current.date(from: components) ?? Date()
-    }
-
-    private func handleEntryTime() {
-        selectedTime = hasEntryTime ? entryTime : Date()
-        showTimePicker.toggle()
-    }
-
-    private func saveEntryTime() {
-        let components = Calendar.current.dateComponents([.hour, .minute], from: selectedTime)
-        entryHour = components.hour ?? -1
-        entryMinute = components.minute ?? -1
-        showTimePicker = false
-    }
-
-    private var entryTimeLabel: String {
-        hasEntryTime ? "Entry: \(format(entryTime))" : "Set Entry Time"
+        Date(timeIntervalSince1970: entryDate)
     }
 
     private var endTime: Date {
@@ -162,17 +141,28 @@ struct MenuBarView: View {
         entryTime.addingTimeInterval(safeExitDuration * 3600)
     }
 
+    private func handleEntryTime() {
+        selectedTime = hasEntryTime ? entryTime : Date()
+        showTimePicker.toggle()
+    }
+
+    private func saveEntryTime() {
+        let comps = Calendar.current.dateComponents([.hour, .minute], from: selectedTime)
+        entryHour = comps.hour ?? -1
+        entryMinute = comps.minute ?? -1
+        entryDate = selectedTime.timeIntervalSince1970
+        showTimePicker = false
+    }
+
+    private var entryTimeLabel: String {
+        hasEntryTime ? "Entry: \(format(entryTime))" : "Set Entry Time"
+    }
 
     private func resetIfNotToday() {
-        guard hasEntryTime else { return }
-        var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-        components.hour = entryHour
-        components.minute = entryMinute
-
-        if let fullEntry = Calendar.current.date(from: components),
-           !Calendar.current.isDateInToday(fullEntry) {
+        if hasEntryTime && !Calendar.current.isDateInToday(entryTime) {
             entryHour = -1
             entryMinute = -1
+            entryDate = -1
         }
     }
 
@@ -181,18 +171,15 @@ struct MenuBarView: View {
         formatter.timeStyle = .short
         return formatter.string(from: date)
     }
-
-    private func secondsToHM(_ totalSeconds: Int) -> (Int, Int) {
-        (totalSeconds / 3600, (totalSeconds % 3600) / 60)
-    }
 }
 
 // MARK: - Settings View
+
 struct SettingsPopoverView: View {
-    @AppStorage("weekendDays") private var weekendDays: String = "Saturday,Sunday"
     @AppStorage("officeDuration") private var officeDuration: Double = 9.0
     @AppStorage("safeExitDuration") private var safeExitDuration: Double = 8.5
     @AppStorage("lateEntryHour") private var lateEntryHour: Int = 10
+//    @AppStorage("weekendDays") private var weekendDaysString: String = "Saturday,Sunday"
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -200,9 +187,9 @@ struct SettingsPopoverView: View {
             Divider()
 
             Group {
-                Text("Weekend Days (comma separated):")
-                TextField("e.g. Saturday,Sunday", text: $weekendDays)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+//                Text("Weekend Days (comma separated):")
+//                TextField("e.g. Saturday,Sunday", text: $weekendDaysString)
+//                    .textFieldStyle(RoundedBorderTextFieldStyle())
 
                 Text("Office Duration (hrs):")
                 Stepper("\(officeDuration, specifier: "%.1f") hrs", value: $officeDuration, in: 4...12, step: 0.5)
@@ -215,13 +202,15 @@ struct SettingsPopoverView: View {
             }
 
             Divider()
-            Text("About").font(.headline)
-            Text("© 2025 Hasnat Abdullah.")
-            Text("Nine2Shine v1.0.0 • Support: hasnat.abdullah@cefalo.com")
-                 
-                .font(.footnote)
 
-            Spacer()
+            HStack(spacing: 4) {
+                Text("About").font(.headline)
+
+                Image(systemName: "info.circle") // No styling here!
+                    .help("Dev: Hasnat Abdullah\nSupport: hasnat.abdullah@cefalo.com")
+            }
+
+            Text("© Nine2Shine v1.0.0").font(.footnote)
         }
         .padding()
         .frame(width: 300)
@@ -229,6 +218,7 @@ struct SettingsPopoverView: View {
 }
 
 // MARK: - Time Picker View
+
 struct TimePickerView: View {
     @Binding var selectedTime: Date
     var onSave: () -> Void
@@ -248,6 +238,7 @@ struct TimePickerView: View {
 }
 
 // MARK: - macOS Menu Button Style
+
 struct MacMenuBarButtonStyle: ButtonStyle {
     @State private var isHovered: Bool = false
 
